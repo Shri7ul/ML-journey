@@ -54,7 +54,7 @@ for col in categorical_cols:
     print(result)
     print()
 
-    ```
+```
 
 
 # 📁 2️⃣ Load Dataset

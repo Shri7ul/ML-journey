@@ -39,6 +39,23 @@ print(f"🔢 Numeric Columns    : {len(numeric_cols)}")
 print(f"🔤 Categorical Columns: {len(categorical_cols)}")
 ```
 
+```python
+# Show count and proportion for each categorical column
+
+for col in categorical_cols:
+    print("=" * 60)
+    print(f"Column: {col}")
+    
+    result = pd.DataFrame({
+        "Count": df[col].value_counts(dropna=False),
+        "Proportion (%)": round(df[col].value_counts(normalize=True, dropna=False) * 100, 2)
+    })
+    
+    print(result)
+    print()
+
+    ```
+
 
 # 📁 2️⃣ Load Dataset
 

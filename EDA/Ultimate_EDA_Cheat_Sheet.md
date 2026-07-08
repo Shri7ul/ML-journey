@@ -18,6 +18,28 @@ import seaborn as sns
 
 ---
 
+# 🔍  Check Columns
+
+```python
+# Numeric columns
+numeric_cols = df.select_dtypes(include=['number']).columns.tolist()
+
+# Categorical columns
+categorical_cols = df.select_dtypes(include=['object', 'category', 'bool']).columns.tolist()
+
+print(f"Numeric Columns ({len(numeric_cols)}):")
+print(numeric_cols)
+
+print(f"\nCategorical Columns ({len(categorical_cols)}):")
+print(categorical_cols)
+
+print("\nSummary:")
+print(f"✅ Total Columns       : {df.shape[1]}")
+print(f"🔢 Numeric Columns    : {len(numeric_cols)}")
+print(f"🔤 Categorical Columns: {len(categorical_cols)}")
+```
+
+
 # 📁 2️⃣ Load Dataset
 
 ```python

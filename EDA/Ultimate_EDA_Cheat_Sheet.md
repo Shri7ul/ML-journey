@@ -195,7 +195,18 @@ df.select_dtypes(include=np.number)
 ```python
 df.select_dtypes(include="object")
 ```
+```python
 
+plt.figure(figsize=(15,8))
+plt.suptitle('Uniovariate Anaysis of Categorical Columns',fontsize=20)
+
+for i in range(0,len(categorical_cols)):
+  plt.subplot(3,3,i+1)
+  sns.countplot(x=df[categorical_cols[i]])
+  plt.xlabel(categorical_cols[i])
+  plt.tight_layout()
+
+```
 ---
 
 # 📊 6️⃣ Numerical Data Analysis
@@ -219,6 +230,29 @@ plt.show()
 ```python
 sns.histplot(df["col"], kde=True)
 plt.show()
+```
+
+```python
+# KDE Plot for all numeric columns
+for col in numeric_cols:
+    plt.figure(figsize=(6,4))
+    sns.kdeplot(data=df, x=col, fill=True)
+    plt.title(f'KDE Plot of {col}')
+    plt.xlabel(col)
+    plt.ylabel('Density')
+    plt.grid(alpha=0.3)
+    plt.show()
+```
+
+```python
+for col in numeric_cols:
+    plt.figure(figsize=(6,4))
+    sns.histplot(data=df, x=col, kde=True, bins=30)
+    plt.title(f'Histogram with KDE: {col}')
+    plt.xlabel(col)
+    plt.ylabel('Count')
+    plt.grid(alpha=0.3)
+    plt.show()
 ```
 
 ---
@@ -568,7 +602,27 @@ df.duplicated().sum()
 
 df.corr(numeric_only=True)
 ```
+```python
+#Chi-Square Test of Independence (Chi-Square Test)
+from scipy.stats import chi2_contingency
 
+chi2_test = []
+
+for feature in categorical_cols:
+    p_value = chi2_contingency(pd.crosstab(df['case_status'], df[feature]))[1]
+
+    if p_value < 0.05:
+        chi2_test.append('Reject Null Hypothesis')
+    else:
+        chi2_test.append('Fail to Reject Null Hypothesis')
+
+result = pd.DataFrame({
+    'Column': categorical_cols,
+    'Hypothesis Result': chi2_test
+})
+
+result
+```
 ---
 
 # 🧠 Insight Writing Guide
